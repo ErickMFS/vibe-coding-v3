@@ -1,0 +1,77 @@
+================================================================================
+PONTO DE VERIFICAÇÃO 4: CARREGAR MODELO DE APRENDIZADO DE MÁQUINA
+================================================================================
+
+OBJETIVO:
+Carregar um modelo de ML salvo com joblib, usando cache apropriado 
+e mostrando status de carregamento na interface.
+
+--------------------------------------------------------------------------------
+PROMPT PARA CLAUDE CODE:
+--------------------------------------------------------------------------------
+
+Modifique o arquivo app.py para carregar o modelo de Aprendizado de Máquina:
+
+1. IMPORTAÇÃO:
+   - Adicione no topo do arquivo: import joblib
+
+2. FUNÇÃO DE CARREGAMENTO DO MODELO:
+   - Crie uma função chamada carregar_modelo()
+   - Use o decorador @st.cache_resource (não cache_data!)
+     * cache_resource é usado para objetos que não devem ser serializados
+       (modelos de ML, conexões de banco de dados)
+   - Dentro da função:
+     * Tente carregar o arquivo models/modelo_mock.pkl com joblib.load()
+     * Se FileNotFoundError, retorne None
+     * Caso contrário, retorne o modelo carregado
+
+3. CARREGAR O MODELO:
+   - Após carregar os dados, chame: modelo = carregar_modelo()
+
+4. STATUS NA BARRA LATERAL:
+   - Após os filtros, adicione uma linha separadora
+   - Adicione cabeçalho: "🤖 Modelo de AM"
+   - Se modelo não é None:
+     * Exiba mensagem de sucesso verde: "✅ Modelo carregado"
+     * Adicione legenda pequena: "RandomForest - modelo_mock.pkl"
+   - Se modelo é None:
+     * Exiba mensagem de erro vermelha: "❌ Modelo não disponível"
+     * Adicione legenda: "Execute: python setup_modelo.py"
+
+--------------------------------------------------------------------------------
+EXEMPLO DE CÓDIGO DA FUNÇÃO:
+--------------------------------------------------------------------------------
+
+@st.cache_resource
+def carregar_modelo():
+    try:
+        return joblib.load("models/modelo_mock.pkl")
+    except FileNotFoundError:
+        return None
+
+--------------------------------------------------------------------------------
+CRITÉRIOS DE SUCESSO:
+--------------------------------------------------------------------------------
+
+[ ] Nenhum erro ao iniciar a aplicação
+[ ] Barra lateral mostra seção "Modelo de AM"
+[ ] Mensagem verde "✅ Modelo carregado" aparece
+[ ] Se deletar o arquivo .pkl, mensagem vermelha aparece
+
+--------------------------------------------------------------------------------
+SE O MODELO NÃO EXISTIR:
+--------------------------------------------------------------------------------
+
+Execute no terminal:
+python setup_modelo.py
+
+Isso criará o arquivo models/modelo_mock.pkl
+
+--------------------------------------------------------------------------------
+SE PRECISAR DE AJUDA:
+--------------------------------------------------------------------------------
+
+Copie o código de referência:
+cp app_checkpoints/pv4_modelo.py app.py
+
+================================================================================

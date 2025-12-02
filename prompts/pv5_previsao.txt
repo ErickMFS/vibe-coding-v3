@@ -1,0 +1,116 @@
+================================================================================
+PONTO DE VERIFICAÇÃO 5: INTERFACE DE PREVISÃO
+================================================================================
+
+OBJETIVO:
+Criar um formulário completo para fazer previsões usando o modelo de ML,
+com campos de entrada, botão de ação e exibição formatada do resultado.
+
+--------------------------------------------------------------------------------
+PROMPT PARA CLAUDE CODE:
+--------------------------------------------------------------------------------
+
+Modifique o arquivo app.py para adicionar interface de previsão:
+
+1. SEÇÃO DE PREVISÃO:
+   - Adicione nova seção ao final: st.header("🔮 Fazer Previsão")
+
+2. VERIFICAÇÃO DO MODELO:
+   - Se modelo é None:
+     * Exiba aviso amarelo explicando que o modelo não está disponível
+     * Instrua a executar "python setup_modelo.py"
+     * Pare aqui (não mostre o formulário)
+
+3. TEXTO INTRODUTÓRIO:
+   - Se modelo está disponível, exiba:
+     "Insira os parâmetros para obter uma previsão de produção:"
+
+4. CAMPOS DE ENTRADA (3 colunas):
+   
+   COLUNA 1:
+   - Seletor de cultura: ["Soja", "Milho", "Café", "Algodão", "Cana"]
+     * Use key="pred_cultura" para evitar conflito com filtro
+   - Campo numérico para área:
+     * Rótulo: "Área plantada (hectares)"
+     * Mínimo: 100
+     * Máximo: 15.000.000
+     * Valor padrão: 1.000.000
+     * Passo: 100.000
+
+   COLUNA 2:
+   - Seletor de estado: ["MT", "PR", "GO", "MS", "MG", "SP", "BA", "RS"]
+     * Use key="pred_estado"
+   - Controle deslizante de temperatura:
+     * Rótulo: "Temperatura média (°C)"
+     * Mínimo: 15.0
+     * Máximo: 35.0
+     * Valor padrão: 25.0
+     * Passo: 0.5
+
+   COLUNA 3:
+   - Campo numérico para ano:
+     * Rótulo: "Ano da safra"
+     * Mínimo: 2024
+     * Máximo: 2030
+     * Valor padrão: 2025
+   - Controle deslizante de precipitação:
+     * Rótulo: "Precipitação anual (mm)"
+     * Mínimo: 500
+     * Máximo: 2500
+     * Valor padrão: 1400
+     * Passo: 50
+
+5. BOTÃO DE PREVISÃO:
+   - Adicione espaço vertical com st.markdown("<br>", unsafe_allow_html=True)
+   - Centralize o botão usando 3 colunas [1, 2, 1] e coloque na do meio
+   - Texto: "🚀 Calcular Previsão"
+   - Tipo: "primary"
+   - Largura total da coluna
+
+6. EXECUTAR PREVISÃO (quando botão clicado):
+   - Mostre spinner "Calculando..." durante o processamento
+   - Monte a entrada: X = [[area, temperatura, precipitacao]]
+   - Chame: predicao = modelo.predict(X)[0]
+   - Calcule produtividade: predicao / area (se area > 0)
+
+7. EXIBIR RESULTADOS:
+   - Adicione linha separadora
+   - Crie 3 colunas para métricas:
+     * Coluna 1: "🎯 Produção Estimada" → valor em toneladas formatado
+     * Coluna 2: "📊 Produtividade" → valor em kg/ha formatado
+     * Coluna 3: "📈 vs. Média Histórica" → diferença percentual
+       - Calcule média histórica da cultura selecionada
+       - Mostre delta positivo ou negativo
+   
+8. MENSAGEM DE SUCESSO:
+   - Exiba caixa verde com resumo da previsão
+   - Inclua: cultura, estado, ano, área, produção estimada
+
+9. CELEBRAÇÃO:
+   - Adicione st.balloons() para efeito visual de sucesso
+
+10. TRATAMENTO DE ERRO:
+    - Envolva a previsão em try/except
+    - Se erro, exiba mensagem vermelha com o erro
+
+--------------------------------------------------------------------------------
+CRITÉRIOS DE SUCESSO:
+--------------------------------------------------------------------------------
+
+[ ] Formulário aparece com todos os 6 campos
+[ ] Campos estão organizados em 3 colunas
+[ ] Botão está centralizado e destacado
+[ ] Ao clicar, spinner aparece brevemente
+[ ] Resultado aparece em 3 métricas
+[ ] Mensagem verde resume a previsão
+[ ] Balões aparecem 🎈
+[ ] Se mudar inputs e clicar de novo, novo resultado aparece
+
+--------------------------------------------------------------------------------
+SE PRECISAR DE AJUDA:
+--------------------------------------------------------------------------------
+
+Copie o código de referência:
+cp app_checkpoints/pv5_previsao.py app.py
+
+================================================================================

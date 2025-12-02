@@ -1,0 +1,65 @@
+================================================================================
+PONTO DE VERIFICAÇÃO 1: CARREGAR E EXIBIR DADOS
+================================================================================
+
+OBJETIVO:
+Criar uma aplicação Streamlit básica que carrega dados de um CSV e exibe 
+métricas resumo e uma tabela interativa.
+
+--------------------------------------------------------------------------------
+PROMPT PARA CLAUDE CODE:
+--------------------------------------------------------------------------------
+
+Crie uma aplicação Streamlit com as seguintes características:
+
+1. CONFIGURAÇÃO DA PÁGINA:
+   - Título da aba: "Dashboard de Safras"
+   - Ícone: 🌾
+   - Layout: amplo (wide)
+
+2. CABEÇALHO:
+   - Título principal: "🌾 Dashboard de Safras"
+   - Subtítulo: "Visualização e previsão de produtividade agrícola"
+
+3. CARREGAMENTO DE DADOS:
+   - Carregue o arquivo data/safras.csv
+   - Use @st.cache_data para otimizar o carregamento
+   - Crie uma função separada chamada carregar_dados()
+
+4. MÉTRICAS RESUMO:
+   - Crie uma seção com título "📊 Resumo"
+   - Exiba 4 métricas em colunas lado a lado:
+     a) Total de Registros: quantidade de linhas
+     b) Culturas: número de culturas únicas
+     c) Estados: número de estados únicos  
+     d) Produção Total: soma da coluna producao_toneladas, formatada em milhões (ex: "45.2M ton")
+
+5. TABELA DE DADOS:
+   - Crie uma seção com título "📋 Dados Históricos"
+   - Exiba a tabela completa usando st.dataframe()
+   - Use largura total (use_container_width=True)
+   - Altura de 400 pixels
+
+Salve o arquivo como app.py
+
+--------------------------------------------------------------------------------
+CRITÉRIOS DE SUCESSO:
+--------------------------------------------------------------------------------
+
+[ ] Página abre sem erros no navegador
+[ ] Título e subtítulo aparecem corretamente
+[ ] 4 cards de métricas estão visíveis
+[ ] Produção total está formatada em milhões
+[ ] Tabela exibe todos os dados do CSV
+[ ] Tabela é interativa (ordenação, busca)
+
+--------------------------------------------------------------------------------
+SE PRECISAR DE AJUDA:
+--------------------------------------------------------------------------------
+
+Copie o código de referência:
+cp app_checkpoints/pv1_dados.py app.py
+
+Depois analise o código para entender como funciona.
+
+================================================================================

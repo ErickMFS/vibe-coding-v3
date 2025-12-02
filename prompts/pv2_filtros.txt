@@ -1,0 +1,66 @@
+================================================================================
+PONTO DE VERIFICAÇÃO 2: ADICIONAR FILTROS
+================================================================================
+
+OBJETIVO:
+Adicionar uma barra lateral com filtros interativos que atualizam 
+automaticamente as métricas e a tabela.
+
+--------------------------------------------------------------------------------
+PROMPT PARA CLAUDE CODE:
+--------------------------------------------------------------------------------
+
+Modifique o arquivo app.py para adicionar filtros na barra lateral:
+
+1. BARRA LATERAL - ESTRUTURA:
+   - Adicione um cabeçalho "🔍 Filtros" na barra lateral (sidebar)
+
+2. FILTRO DE CULTURA:
+   - Crie uma lista com "Todas" + todas as culturas únicas do CSV (ordenadas)
+   - Use st.sidebar.selectbox() para criar o seletor
+   - Rótulo: "Cultura"
+
+3. FILTRO DE ESTADO:
+   - Crie uma lista com "Todos" + todos os estados únicos do CSV (ordenados)
+   - Use st.sidebar.selectbox() para criar o seletor
+   - Rótulo: "Estado"
+
+4. FILTRO DE ANO (opcional):
+   - Crie uma lista com "Todos" + todos os anos únicos (ordem decrescente)
+   - Use st.sidebar.selectbox() para criar o seletor
+   - Rótulo: "Ano"
+
+5. APLICAR FILTROS:
+   - Crie uma cópia do dataframe: df_filtrado = df.copy()
+   - Se cultura != "Todas": filtre df_filtrado pela cultura selecionada
+   - Se estado != "Todos": filtre df_filtrado pelo estado selecionado
+   - Se ano != "Todos": filtre df_filtrado pelo ano selecionado
+
+6. USAR DADOS FILTRADOS:
+   - Todas as métricas devem usar df_filtrado (não df)
+   - A tabela deve exibir df_filtrado (não df)
+
+7. INDICADOR DE FILTROS ATIVOS:
+   - Após os seletores, adicione uma linha separadora (st.sidebar.markdown("---"))
+   - Liste quais filtros estão ativos (ex: "• Cultura: Soja")
+   - Adicione um botão "🗑️ Limpar Filtros" que recarrega a página (st.rerun())
+
+--------------------------------------------------------------------------------
+CRITÉRIOS DE SUCESSO:
+--------------------------------------------------------------------------------
+
+[ ] Barra lateral aparece com os 3 seletores
+[ ] Ao selecionar "Soja", apenas dados de soja aparecem
+[ ] Ao selecionar "MT", apenas dados do Mato Grosso aparecem
+[ ] Métricas atualizam conforme os filtros
+[ ] Tabela mostra menos linhas quando filtrado
+[ ] Botão "Limpar Filtros" reseta tudo
+
+--------------------------------------------------------------------------------
+SE PRECISAR DE AJUDA:
+--------------------------------------------------------------------------------
+
+Copie o código de referência:
+cp app_checkpoints/pv2_filtros.py app.py
+
+================================================================================

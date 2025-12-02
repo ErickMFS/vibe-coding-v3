@@ -1,0 +1,115 @@
+================================================================================
+PROMPT PARA ADAPTAR A INTERFACE AO SEU MODELO
+================================================================================
+
+Use este prompt quando quiser adaptar a interface para usar 
+o seu próprio modelo de ML em vez do modelo de exemplo.
+
+--------------------------------------------------------------------------------
+PROMPT BASE:
+--------------------------------------------------------------------------------
+
+Preciso adaptar a interface de previsão para usar meu próprio modelo de ML.
+
+## Informações do meu modelo:
+
+1. ARQUIVO DO MODELO:
+   - Caminho: models/[nome_do_seu_arquivo].pkl
+   - Biblioteca usada para salvar: [joblib / pickle / outro]
+
+2. CARACTERÍSTICAS (FEATURES) DE ENTRADA:
+   Liste cada característica que seu modelo espera:
+   
+   | Nome | Tipo | Faixa de Valores | Descrição |
+   |------|------|------------------|-----------|
+   | [ex: area_ha] | [numérico] | [100 - 1000000] | [Área plantada] |
+   | [ex: temp_media] | [numérico] | [15 - 35] | [Temperatura em °C] |
+   | [ex: tipo_solo] | [categórico] | [argiloso, arenoso, misto] | [Tipo do solo] |
+   
+3. ORDEM DAS CARACTERÍSTICAS:
+   A ordem em que as características devem ser passadas ao modelo:
+   [ex: area_ha, temp_media, precipitacao, tipo_solo_encoded]
+
+4. PRÉ-PROCESSAMENTO NECESSÁRIO:
+   - Variáveis categóricas precisam de encoding? [Sim/Não]
+   - Quais são os mapeamentos? [ex: argiloso=0, arenoso=1, misto=2]
+   - Há normalização/padronização? [Sim/Não]
+
+5. SAÍDA DO MODELO:
+   - O que o modelo retorna? [ex: produção em toneladas]
+   - É um valor único ou múltiplos valores?
+
+## Tarefa:
+
+Modifique o formulário de previsão em app.py para:
+1. Criar campos de entrada para cada característica listada
+2. Aplicar o pré-processamento necessário
+3. Montar o array X na ordem correta
+4. Chamar modelo.predict(X)
+5. Exibir o resultado formatado adequadamente
+
+--------------------------------------------------------------------------------
+EXEMPLO PREENCHIDO:
+--------------------------------------------------------------------------------
+
+Preciso adaptar a interface de previsão para usar meu próprio modelo de ML.
+
+## Informações do meu modelo:
+
+1. ARQUIVO DO MODELO:
+   - Caminho: models/modelo_produtividade_soja.pkl
+   - Biblioteca usada: joblib
+
+2. CARACTERÍSTICAS DE ENTRADA:
+
+   | Nome | Tipo | Faixa | Descrição |
+   |------|------|-------|-----------|
+   | area_ha | numérico | 100 - 5000000 | Área em hectares |
+   | precipitacao_mm | numérico | 800 - 2000 | Chuva anual em mm |
+   | temperatura_c | numérico | 18 - 32 | Temperatura média |
+   | altitude_m | numérico | 200 - 1200 | Altitude em metros |
+   | tipo_solo | categórico | argiloso, arenoso, misto | Tipo do solo |
+
+3. ORDEM DAS CARACTERÍSTICAS:
+   area_ha, precipitacao_mm, temperatura_c, altitude_m, tipo_solo_encoded
+
+4. PRÉ-PROCESSAMENTO:
+   - Encoding para tipo_solo: argiloso=0, arenoso=1, misto=2
+   - Sem normalização (modelo já foi treinado com valores brutos)
+
+5. SAÍDA:
+   - Produção estimada em toneladas (valor único)
+
+Por favor, modifique o formulário de previsão.
+
+--------------------------------------------------------------------------------
+O QUE CLAUDE VAI GERAR:
+--------------------------------------------------------------------------------
+
+Claude criará código semelhante a:
+
+# Campos de entrada
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    area = st.number_input("Área (ha)", min_value=100, max_value=5000000, value=10000)
+    tipo_solo = st.selectbox("Tipo de Solo", ["argiloso", "arenoso", "misto"])
+
+with col2:
+    precipitacao = st.slider("Precipitação (mm)", 800, 2000, 1400)
+    temperatura = st.slider("Temperatura (°C)", 18, 32, 25)
+
+with col3:
+    altitude = st.number_input("Altitude (m)", 200, 1200, 500)
+
+# Pré-processamento
+mapa_solo = {"argiloso": 0, "arenoso": 1, "misto": 2}
+solo_encoded = mapa_solo[tipo_solo]
+
+# Previsão
+if st.button("Calcular Previsão"):
+    X = [[area, precipitacao, temperatura, altitude, solo_encoded]]
+    predicao = modelo.predict(X)[0]
+    st.success(f"Produção estimada: {predicao:,.0f} toneladas")
+
+================================================================================

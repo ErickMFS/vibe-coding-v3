@@ -1,0 +1,76 @@
+================================================================================
+PONTO DE VERIFICAÇÃO 3: ADICIONAR VISUALIZAÇÕES
+================================================================================
+
+OBJETIVO:
+Adicionar gráficos interativos usando Plotly Express, com layout 
+em colunas mostrando tabela e gráficos lado a lado.
+
+--------------------------------------------------------------------------------
+PROMPT PARA CLAUDE CODE:
+--------------------------------------------------------------------------------
+
+Modifique o arquivo app.py para adicionar visualizações com Plotly:
+
+1. IMPORTAÇÃO:
+   - Adicione no topo do arquivo: import plotly.express as px
+
+2. SEÇÃO DE VISUALIZAÇÃO:
+   - Substitua a seção da tabela por uma nova seção
+   - Título: "📊 Dados e Visualização"
+
+3. LAYOUT EM COLUNAS:
+   - Crie duas colunas de tamanho igual: col_tabela, col_grafico = st.columns(2)
+
+4. COLUNA DA TABELA (esquerda):
+   - Subtítulo: "📋 Tabela de Dados"
+   - Exiba df_filtrado com altura de 400 pixels
+
+5. COLUNA DO GRÁFICO DE BARRAS (direita):
+   - Subtítulo: "📊 Produção por Estado"
+   - Agrupe os dados: some producao_toneladas por estado
+   - Ordene do menor para o maior (ascending=True)
+   - Crie gráfico de barras horizontais com px.bar():
+     * x = producao_toneladas
+     * y = estado
+     * orientation = "h"
+     * color = estado
+   - Configure: sem legenda (showlegend=False), altura 400
+   - Exiba com st.plotly_chart(fig, use_container_width=True)
+
+6. GRÁFICO DE EVOLUÇÃO TEMPORAL:
+   - Adicione nova seção abaixo: "📈 Evolução da Produção"
+   - Agrupe dados: some producao_toneladas por ano e cultura
+   - Crie gráfico de linhas com px.line():
+     * x = ano
+     * y = producao_toneladas
+     * color = cultura
+     * markers = True (mostrar pontos)
+   - Configure rótulos em português:
+     * producao_toneladas → "Produção (toneladas)"
+     * ano → "Ano"
+     * cultura → "Cultura"
+   - Altura: 400 pixels
+
+IMPORTANTE: Todos os gráficos devem usar df_filtrado para respeitar os filtros!
+
+--------------------------------------------------------------------------------
+CRITÉRIOS DE SUCESSO:
+--------------------------------------------------------------------------------
+
+[ ] Tabela e gráfico de barras aparecem lado a lado
+[ ] Gráfico de barras mostra estados ordenados por produção
+[ ] Barras têm cores diferentes por estado
+[ ] Gráfico de linhas mostra evolução temporal
+[ ] Cada cultura tem uma linha de cor diferente
+[ ] Ao aplicar filtros, TODOS os gráficos atualizam
+[ ] Gráficos são interativos (hover mostra valores, zoom funciona)
+
+--------------------------------------------------------------------------------
+SE PRECISAR DE AJUDA:
+--------------------------------------------------------------------------------
+
+Copie o código de referência:
+cp app_checkpoints/pv3_grafico.py app.py
+
+================================================================================
