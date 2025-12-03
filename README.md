@@ -22,8 +22,8 @@ dialoga com a IA para criar especificações antes de gerar código.
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/curso-mapa/vibe-coding-v4.git
-cd vibe-coding-v4
+git clone https://github.com/curso-mapa/vibe-coding-v3.git
+cd vibe-coding-v3
 ```
 
 ### 2. Criar ambiente virtual
@@ -170,5 +170,6 @@ Guia completo em: `troubleshooting.md`
 ## 📝 Licença
 
 Material educacional - Erick Muzart, com licença para o MAPA
+
 
 Curso de Vibe Coding Estruturado v4 - Dezembro 2025
