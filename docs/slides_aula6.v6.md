@@ -397,9 +397,9 @@ Demonstração de uma aplicação completa
 <br>
 
 **Observem:**
-- A simplicidade da interface
-- Como os dados aparecem
-- Como a previsão funciona
+A simplicidade da interface
+Como os dados aparecem
+Como a previsão funciona
 
 </div>
 
@@ -407,7 +407,7 @@ Demonstração de uma aplicação completa
 
 # O problema: "Vibe Coding" tradicional
 
-> **"Não importa quão rápido você consegue criar algo se for inútil."**
+> **"Não importa quão rápido você consegue criar algo se isso for inútil."**
 > — Bechtel
 
 <div class="box box-danger">
@@ -720,7 +720,7 @@ claude
 
 ---
 
-# 🆘 Resolução de Problemas Rápida
+# 🆘 Resolução Rápida de Problemas
 
 | Erro | Solução |
 |------|---------|
